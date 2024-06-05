@@ -19,7 +19,7 @@ This project is a simple sentiment analysis API built using FastAPI. The API tak
 1. Clone the repository:
     ```bash
     git clone https://github.com/yourusername/sentiment-analysis-api.git
-    cd sentiment-analysis-api
+    cd chat-bot
     ```
 
 2. Create and activate a virtual environment:
@@ -45,7 +45,7 @@ This project is a simple sentiment analysis API built using FastAPI. The API tak
 3. To analyze sentiment, send a POST request to `/sentiment-analysis/` with a JSON payload containing the input text:
     ```json
     {
-        "inputs": "I like you"
+        "inputs": "I like coding!"
     }
     ```
 
