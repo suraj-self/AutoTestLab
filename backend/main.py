@@ -6,9 +6,10 @@ from transformers import DistilBertTokenizer, DistilBertForSequenceClassificatio
 import torch
 from torch.nn import Softmax
 
+# Initialize the FastAPI application
 app = FastAPI()
 
-# Allow all origins for CORS
+# Add middleware to allow all CORS origins, methods, and headers
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Allows all origins
@@ -17,11 +18,14 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-# Load tokenizer and model
-tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")
-model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")
+# Load the pre-trained tokenizer and model for sentiment analysis
+try:
+    tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")
+    model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")
+except Exception as e:
+    raise RuntimeError(f"Error loading model or tokenizer: {str(e)}")
 
-# Define response model
+# Define the response model for sentiment analysis results
 class SentimentScore(BaseModel):
     label: str
     score: float
@@ -29,13 +33,15 @@ class SentimentScore(BaseModel):
 @app.post("/sentiment-analysis/", response_model=List[List[SentimentScore]])
 async def analyze_sentiment(input_data: Dict[str, str]) -> List[List[SentimentScore]]:
     try:
-        # Get input text from JSON
+        # Retrieve input text from JSON request
         input_text = input_data.get("inputs", "")
+        if not input_text:
+            raise HTTPException(status_code=400, detail="Input text is required")
 
-        # Tokenize input text
+        # Tokenize the input text
         inputs = tokenizer(input_text, return_tensors="pt", truncation=True, padding=True)
 
-        # Perform inference
+        # Perform model inference
         with torch.no_grad():
             logits = model(**inputs).logits
 
@@ -47,12 +53,14 @@ async def analyze_sentiment(input_data: Dict[str, str]) -> List[List[SentimentSc
         positive_prob = float(probs[model.config.label2id["POSITIVE"]])
         negative_prob = float(probs[model.config.label2id["NEGATIVE"]])
 
-        # Format response
+        # Format the response
         response = [
             [{"label": "POSITIVE", "score": positive_prob}, {"label": "NEGATIVE", "score": negative_prob}]
         ]
 
         return response
 
+    except KeyError as e:
+        raise HTTPException(status_code=500, detail=f"Label key error: {str(e)}")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
