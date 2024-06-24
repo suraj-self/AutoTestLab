@@ -16,7 +16,7 @@ This script uses Puppeteer to automate the login process, product selection, and
 
    ```bash
    npm install puppeteer dotenv
-4. Execute the script to perform the automated testing
+4. Execute the script to perform the automated testing from the same directory where ecom.js file exists
 
    ```bash
    node ecom.js
