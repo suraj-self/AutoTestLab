@@ -11,7 +11,7 @@ This script uses Puppeteer to automate the login process, product selection, and
 ## Setup
 
 1. Clone this repository or download the script.
-2. Open a terminal and navigate to the directory containing the script.
+2. Open a terminal and navigate to the directory /sentiment-analysis/puppeteer.
 3. Install the required packages by running:
 
    ```bash
