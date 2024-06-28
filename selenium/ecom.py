@@ -1,18 +1,19 @@
+# Import necessary Selenium modules
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv  # Library to load environment variables from .env file
 
 # Load environment variables from .env file
 load_dotenv()
 
-# Setup WebDriver
+# Setup WebDriver options for Chrome
 options = webdriver.ChromeOptions()
-options.headless = False
-options.add_argument('--start-maximized')
-driver = webdriver.Chrome(options=options)
+options.headless = False  # Run Chrome in headless mode (without GUI)
+options.add_argument('--start-maximized')  # Maximize the Chrome window on start
+driver = webdriver.Chrome(options=options)  # Initialize Chrome WebDriver instance
 
 try:
     # Navigate to the URL
@@ -35,19 +36,21 @@ try:
         EC.presence_of_element_located((By.ID, 'password'))
     )
 
+    # Fetch username and password from environment variables
     username_value = os.getenv('USERNAME')
     password_value = os.getenv('PASSWORD')
-    
+
+    # Check if environment variables USERNAME and PASSWORD are set
     if username_value is None or password_value is None:
         raise ValueError('Environment variables USERNAME and PASSWORD must be set.')
 
+    # Enter username and password into their respective fields
     username.send_keys(username_value)
     password.send_keys(password_value)
 
     # Click login button
     login_button = driver.find_element(By.ID, 'login-button')
     login_button.click()
-
     print('Logged in successfully.')
 
     # Validate if the title text includes 'Products'
@@ -64,6 +67,7 @@ try:
     if product_names is None:
         raise ValueError('No products found.')
 
+    # Find and click on the product named 'Sauce Labs Onesie'
     for product in product_names:
         if 'Sauce Labs Onesie' in product.text:
             product.click()
@@ -102,6 +106,7 @@ try:
     if cart_items is None:
         raise ValueError('No cart items found.')
 
+    # Check if 'Sauce Labs Onesie' is present in the cart items
     if any('Sauce Labs Onesie' in item.text for item in cart_items):
         print('Product "Sauce Labs Onesie" found in the cart.')
     else:
@@ -175,7 +180,7 @@ try:
     burger_menu_button.click()
     print('Clicked on lines icon')
 
-
+    # Click on logout link
     logout_link = WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.ID, 'logout_sidebar_link'))
     )
@@ -197,4 +202,4 @@ except Exception as e:
     print(f'Error occurred: {e}')
 
 finally:
-    driver.quit()
+    driver.quit()  # Close the WebDriver instance
