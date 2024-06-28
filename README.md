@@ -1,72 +1,66 @@
-# Sentiment Analysis API
 
-This project is a simple sentiment analysis API built using FastAPI. The API takes input text and returns the probabilities of the text being positive or negative using a pre-trained DistilBERT model fine-tuned on the SST-2 dataset.
+## Contents
 
-## Features
+### Selenium
 
-- Sentiment analysis using the DistilBERT model.
-- Returns probabilities for positive and negative sentiments.
+The Selenium folder contains tests for Sauce Demo websites. Sub-folder has its own `requirements.txt` file and README for instructions on how to run the tests.
 
-## Requirements
+### Puppeteer
 
-- Python 3.8+
-- FastAPI
-- Transformers
-- Torch
+The Puppeteer folder contains tests for Sauce Demo websites using Puppeteer, a Node library. Sub-folder has its own `package.json` file and README for instructions on how to run the tests.
 
-## Installation
+### PyTest
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/yourusername/sentiment-analysis-api.git
-    cd chat-bot
-    ```
+The PyTest folder contains tests for JSONPlaceholder APIs using PyTest, a popular testing framework in Python. Sub-folder has its own `requirements.txt` file and README for instructions on how to run the tests.
 
-2. Create and activate a virtual environment:
-    ```bash
-    python -m venv env
-    source env/bin/activate  # On Windows use `env\Scripts\activate`
-    ```
+## Getting Started
 
-3. Install the required dependencies:
-    ```bash
+To get started with running the tests, follow the instructions provided in the README file located in each framework's sub-folder. Below are general instructions for each framework.
+
+### Selenium
+
+1. **Install Dependencies**: Navigate to the desired project's folder and install the dependencies:
+    ```sh
     pip install -r requirements.txt
     ```
-
-## Usage
-
-1. Run the FastAPI server:
-    ```bash
-    uvicorn main:app --reload
+2. **Run Tests**: Execute the test scripts using:
+    ```sh
+    python ecom.py
     ```
 
-2. The API will be available at `http://127.0.0.1:8000`.
+### Puppeteer
 
-3. To analyze sentiment, send a POST request to `/sentiment-analysis/` with a JSON payload containing the input text:
-    ```json
-    {
-        "inputs": "I like coding!"
-    }
+1. **Install Dependencies**: Navigate to the desired project's folder and install the dependencies:
+    ```sh
+    npm install
+    ```
+2. **Run Tests**: Execute the test scripts using:
+    ```sh
+    npm ecom.js
     ```
 
-4. The response will be a JSON array with the probabilities of the text being positive or negative:
-    ```json
-    [
-        [
-            {
-                "label": "POSITIVE",
-                "score": 0.9998695850372314
-            },
-            {
-                "label": "NEGATIVE",
-                "score": 0.00013043530634604394
-            }
-        ]
-    ]
+### PyTest
+
+1. **Install Dependencies**: Navigate to the desired project's folder and install the dependencies:
+    ```sh
+    pip install -r requirements.txt
+    ```
+2. **Run Tests**: Execute the test scripts using:
+    ```sh
+    pytest tests
     ```
 
-## Example
+## Contributions
 
-Example POST request using `curl`:
-```bash
-curl -X POST "http://127.0.0.1:8000/sentiment-analysis/" -H "Content-Type: application/json" -d '{"inputs": "I like you"}'
+Contributions are welcome! Please fork the repository, make your changes, and submit a pull request. Ensure your code follows the style guidelines and passes all tests.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any questions or suggestions, feel free to open an issue or contact me at [suraj03143@gmail.com].
+
+Happy Testing!
+
