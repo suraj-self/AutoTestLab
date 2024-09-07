@@ -14,9 +14,8 @@ def run_selenium_script():
     logging.basicConfig(filename='test_execution.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
     # Load environment variables
-    load_dotenv()
+    load_dotenv('ui_automation/selenium/.env')
 
-    # Read sensitive data from .env
     USERNAME = os.getenv('USERNAME')
     PASSWORD = os.getenv('PASSWORD')
 
