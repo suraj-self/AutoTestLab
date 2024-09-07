@@ -9,9 +9,14 @@ from selenium.webdriver.support import expected_conditions as EC
 from dotenv import load_dotenv
 import os
 
+
 def run_selenium_script():
     # Setup logging
-    logging.basicConfig(filename='test_execution.log', level=logging.INFO, format='%(asctime)s - %(message)s')
+    logging.basicConfig(
+        filename='test_execution.log', 
+        level=logging.INFO, 
+        format='%(asctime)s - %(message)s'
+    )
 
     # Load environment variables
     load_dotenv('ui_automation/selenium/.env')
@@ -30,8 +35,11 @@ def run_selenium_script():
         options.add_argument('--headless')  # Use headless mode for CI/CD
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
-        
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+
+        driver = webdriver.Chrome(
+            service=Service(ChromeDriverManager().install()), 
+            options=options
+        )
         logging.info("Browser launched successfully")
 
         # Navigate to login page
@@ -83,7 +91,7 @@ def run_selenium_script():
             return {"message": "fail", "messageCode": 400}
 
         for product in inventory_items_list:
-            if test_data['product_name']in product.text:
+            if test_data['product_name'] in product.text:
                 logging.info(f"Found product: {test_data['product_name']}")
                 product.click()
                 break
@@ -103,7 +111,7 @@ def run_selenium_script():
         )
         add_cart_elem.click()
         logging.info("Added item to cart")
-        
+
         # Wait for and click on cart icon
         cart_icon_elements = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.CLASS_NAME, 'shopping_cart_link'))
@@ -167,7 +175,7 @@ def run_selenium_script():
         order_confirm_msg_text = order_confirm_msg_elem.text
         if order_confirm_msg_text != "Thank you for your order!":
             logging.error("Order confirmation message is incorrect")
-            return {"message": "fail", "messageCode": 400, "track":"order_confirm_msg"}
+            return {"message": "fail", "messageCode": 400, "track": "order_confirm_msg"}
         else:
             logging.info("Order placed successfully")
 
@@ -185,15 +193,16 @@ def run_selenium_script():
         logging.info("Logged out successfully")
 
         return {"message": "success", "messageCode": 200}
-    
+
     except Exception as e:
         logging.error(f"Error occurred: {e}")
-        return {"message": "fail", "messageCode": 400, "track":"last"}
-    
+        return {"message": "fail", "messageCode": 400, "track": "last"}
+
     finally:
         if driver:
             driver.quit()  # Quit the browser if the driver is initialized
             logging.info("Browser closed")
+
 
 # Add this to call the function when the script is executed
 if __name__ == "__main__":
