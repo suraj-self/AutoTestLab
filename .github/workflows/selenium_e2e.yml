@@ -1,5 +1,6 @@
 name: Run Selenium End-to-End Tests
 
+# Trigger the workflow on every push and pull request
 on:
   push:
     branches:
@@ -13,30 +14,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Step 1: Checkout the repository
     - name: Checkout code
       uses: actions/checkout@v2
 
+    # Step 2: Set up Python environment
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
         python-version: '3.x'
 
+    # Step 3: Install dependencies
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r ui_automation/selenium/requirements.txt
 
-    # Running the script
+    # Step 4: Set up environment variables (from .env)
+    - name: Load .env file
+      run: |
+        python -m pip install python-dotenv
+        echo "Setting up environment variables"
+        set -a
+        source ui_automation/selenium/.env || true
+        set +a
+
+    # Step 5: Run Selenium Test
     - name: Run Selenium Test
       run: |
         python ui_automation/selenium/auto_pilot_code.py
 
-    # Check the result
+    # Step 6: Check the result
     - name: Check Test Result
       run: |
         RESPONSE=$(python -c "import sys; sys.path.append('ui_automation/selenium'); import auto_pilot_code; print(auto_pilot_code.run_selenium_script())")
         echo "Response: $RESPONSE"
-        if [[ "$RESPONSE" == *'"messageCode": 200'* ]]; then
+        if echo "$RESPONSE" | grep '"messageCode": 200'; then
           echo "Selenium tests passed successfully!"
         else
           echo "Selenium tests failed."
