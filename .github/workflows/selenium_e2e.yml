@@ -44,3 +44,4 @@ jobs:
         else
           echo "Selenium tests failed."
           exit 1
+        fi  # <- Added missing fi here
