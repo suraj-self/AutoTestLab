@@ -60,12 +60,12 @@ def run_selenium_script():
             EC.element_to_be_clickable((By.ID, 'login-button'))
         )
         login_button.click()
-        logging.info("Logged in successfully")
 
         # Wait for home page title to appear
         home_page_title_element = WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, 'title'))
         )
+        logging.info("Logged in successfully")
         home_page_title_text = home_page_title_element.text
         if home_page_title_text != 'Products':
             logging.error("Home page title is incorrect")
@@ -195,3 +195,8 @@ def run_selenium_script():
     finally:
         driver.quit()
         logging.info("Browser closed")
+
+# Add this to call the function when the script is executed
+if __name__ == "__main__":
+    result = run_selenium_script()
+    print(result)  # This will print the success/failure message and messageCode
