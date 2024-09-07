@@ -6,25 +6,27 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from dotenv import load_dotenv
-import os
+# from dotenv import load_dotenv
+# import os
 
 def run_selenium_script():
     # Setup logging
     logging.basicConfig(filename='test_execution.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
     # Load environment variables
-    load_dotenv('ui_automation/selenium/.env')
+    # load_dotenv('ui_automation/selenium/.env')
 
-    USERNAME = os.getenv('USERNAME')
-    PASSWORD = os.getenv('PASSWORD')
-
+    # USERNAME = os.getenv('USERNAME')
+    # PASSWORD = os.getenv('PASSWORD')
+    # print("usr", USERNAME)
+    # print("pwd", PASSWORD)
     driver = None  # Initialize the driver variable
     try:
-        # Read non-sensitive data from testData.json
-        with open('data/testData.json') as json_file:
-            test_data = json.load(json_file)
-
+        # print("1")
+        # # Read non-sensitive data from testData.json
+        # with open('data/testData.json') as json_file:
+        #     test_data = json.load(json_file)
+        # print("2")
         # Setup chrome driver
         options = webdriver.ChromeOptions()
         options.add_argument('--headless')  # Use headless mode for CI/CD
@@ -35,7 +37,7 @@ def run_selenium_script():
         logging.info("Browser launched successfully")
 
         # Navigate to login page
-        driver.get(test_data["url"])
+        driver.get("https://www.saucedemo.com/")
         logging.info("Navigated to login page")
 
         # Wait for the "Swag Labs" logo to be visible
@@ -45,19 +47,19 @@ def run_selenium_script():
         logo_text = login_logo.text
         if logo_text != 'Swag Labs':
             logging.error("Swag Labs text not found on login page")
-            return {"message": "fail", "messageCode": 400}
+            return {"message": "fail", "messageCode": 400, "track":"login_issue"}
 
         # Wait for username field and enter login credentials
         usrname_field = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, 'user-name'))
         )
-        usrname_field.send_keys(USERNAME)
+        usrname_field.send_keys("standard_user")
         logging.info("Entered username")
 
         usrpwd_field = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, 'password'))
         )
-        usrpwd_field.send_keys(PASSWORD)
+        usrpwd_field.send_keys("secret_sauce")
         logging.info("Entered password")
 
         login_button = WebDriverWait(driver, 10).until(
@@ -72,7 +74,7 @@ def run_selenium_script():
         home_page_title_text = home_page_title_element.text
         if home_page_title_text != 'Products':
             logging.error("Home page title is incorrect")
-            return {"message": "fail", "messageCode": 400}
+            return {"message": "fail", "messageCode": 400, "track":"home_page_issue"}
 
         # Find specific product
         inventory_items_list = WebDriverWait(driver, 10).until(
@@ -80,11 +82,11 @@ def run_selenium_script():
         )
         if not inventory_items_list:
             logging.error("No product found")
-            return {"message": "fail", "messageCode": 400}
+            return {"message": "fail", "messageCode": 400, "track":"product_issue"}
 
         for product in inventory_items_list:
-            if test_data["product_name"] in product.text:
-                logging.info(f"Found product: {test_data['product_name']}")
+            if "Sauce Labs Onesie" in product.text:
+                logging.info(f"Found product: Sauce Labs Onesie")
                 product.click()
                 break
 
@@ -95,7 +97,7 @@ def run_selenium_script():
         price_text = price_elem.text
         if '$' not in price_text:
             logging.error("Price does not contain $")
-            return {"message": "fail", "messageCode": 400}
+            return {"message": "fail", "messageCode": 400, "track":"price_issue"}
 
         # Add to cart
         add_cart_elem = WebDriverWait(driver, 10).until(
@@ -115,11 +117,11 @@ def run_selenium_script():
         cart_item_elem = WebDriverWait(driver, 10).until(
             EC.presence_of_all_elements_located((By.CLASS_NAME, 'cart_item'))
         )
-        if any(test_data["product_name"] in item.text for item in cart_item_elem):
-            logging.info(f"Product {test_data['product_name']} found in the cart.")
+        if any("Sauce Labs Onesie" in item.text for item in cart_item_elem):
+            logging.info("Product Sauce Labs Onesie found in the cart.")
         else:
             logging.error("Product not found in cart")
-            return {"message": "fail", "messageCode": 400}
+            return {"message": "fail", "messageCode": 400, "track":"cart_issue"}
 
         # Proceed to checkout
         checkout_element = WebDriverWait(driver, 10).until(
@@ -132,19 +134,19 @@ def run_selenium_script():
         first_name_elem = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, 'first-name'))
         )
-        first_name_elem.send_keys(test_data['first_name'])
+        first_name_elem.send_keys("John")
         logging.info("Entered first name")
 
         last_name_elem = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, 'last-name'))
         )
-        last_name_elem.send_keys(test_data['last_name'])
+        last_name_elem.send_keys("Wick")
         logging.info("Entered last name")
 
         zip_code_elem = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, 'postal-code'))
         )
-        zip_code_elem.send_keys(test_data['zip_code'])
+        zip_code_elem.send_keys("123456")
         logging.info("Entered zip code")
 
         # Continue checkout process
@@ -167,7 +169,7 @@ def run_selenium_script():
         order_confirm_msg_text = order_confirm_msg_elem.text
         if order_confirm_msg_text != "Thank you for your order!":
             logging.error("Order confirmation message is incorrect")
-            return {"message": "fail", "messageCode": 400}
+            return {"message": "fail", "messageCode": 400, "track":"order_confirm_msg"}
         else:
             logging.info("Order placed successfully")
 
@@ -188,7 +190,7 @@ def run_selenium_script():
     
     except Exception as e:
         logging.error(f"Error occurred: {e}")
-        return {"message": "fail", "messageCode": 400}
+        return {"message": "fail", "messageCode": 400, "track":"last"}
     
     finally:
         if driver:
