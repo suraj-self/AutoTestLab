@@ -20,13 +20,19 @@ def run_selenium_script():
     USERNAME = os.getenv('USERNAME')
     PASSWORD = os.getenv('PASSWORD')
 
+    driver = None  # Initialize the driver variable
     try:
         # Read non-sensitive data from testData.json
         with open('data/testData.json') as json_file:
             test_data = json.load(json_file)
 
         # Setup chrome driver
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless')  # Use headless mode for CI/CD
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         logging.info("Browser launched successfully")
 
         # Navigate to login page
@@ -40,7 +46,6 @@ def run_selenium_script():
         logo_text = login_logo.text
         if logo_text != 'Swag Labs':
             logging.error("Swag Labs text not found on login page")
-            driver.quit()
             return {"message": "fail", "messageCode": 400}
 
         # Wait for username field and enter login credentials
@@ -65,11 +70,9 @@ def run_selenium_script():
         home_page_title_element = WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, 'title'))
         )
-        logging.info("Logged in successfully")
         home_page_title_text = home_page_title_element.text
         if home_page_title_text != 'Products':
             logging.error("Home page title is incorrect")
-            driver.quit()
             return {"message": "fail", "messageCode": 400}
 
         # Find specific product
@@ -78,7 +81,6 @@ def run_selenium_script():
         )
         if not inventory_items_list:
             logging.error("No product found")
-            driver.quit()
             return {"message": "fail", "messageCode": 400}
 
         for product in inventory_items_list:
@@ -94,7 +96,6 @@ def run_selenium_script():
         price_text = price_elem.text
         if '$' not in price_text:
             logging.error("Price does not contain $")
-            driver.quit()
             return {"message": "fail", "messageCode": 400}
 
         # Add to cart
@@ -119,7 +120,6 @@ def run_selenium_script():
             logging.info(f"Product {test_data['product_name']} found in the cart.")
         else:
             logging.error("Product not found in cart")
-            driver.quit()
             return {"message": "fail", "messageCode": 400}
 
         # Proceed to checkout
@@ -168,7 +168,6 @@ def run_selenium_script():
         order_confirm_msg_text = order_confirm_msg_elem.text
         if order_confirm_msg_text != "Thank you for your order!":
             logging.error("Order confirmation message is incorrect")
-            driver.quit()
             return {"message": "fail", "messageCode": 400}
         else:
             logging.info("Order placed successfully")
@@ -193,8 +192,9 @@ def run_selenium_script():
         return {"message": "fail", "messageCode": 400}
     
     finally:
-        driver.quit()
-        logging.info("Browser closed")
+        if driver:
+            driver.quit()  # Quit the browser if the driver is initialized
+            logging.info("Browser closed")
 
 # Add this to call the function when the script is executed
 if __name__ == "__main__":
