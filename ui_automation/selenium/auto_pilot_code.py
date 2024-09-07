@@ -6,18 +6,18 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-# from dotenv import load_dotenv
-# import os
+from dotenv import load_dotenv
+import os
 
 def run_selenium_script():
     # Setup logging
     logging.basicConfig(filename='test_execution.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
     # Load environment variables
-    # load_dotenv('ui_automation/selenium/.env')
+    load_dotenv('ui_automation/selenium/.env')
 
-    # USERNAME = os.getenv('USERNAME')
-    # PASSWORD = os.getenv('PASSWORD')
+    USERNAME = os.getenv('USERNAME')
+    PASSWORD = os.getenv('PASSWORD')
     # print("usr", USERNAME)
     # print("pwd", PASSWORD)
     driver = None  # Initialize the driver variable
@@ -53,13 +53,13 @@ def run_selenium_script():
         usrname_field = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, 'user-name'))
         )
-        usrname_field.send_keys("standard_user")
+        usrname_field.send_keys(USERNAME)
         logging.info("Entered username")
 
         usrpwd_field = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, 'password'))
         )
-        usrpwd_field.send_keys("secret_sauce")
+        usrpwd_field.send_keys(PASSWORD)
         logging.info("Entered password")
 
         login_button = WebDriverWait(driver, 10).until(
