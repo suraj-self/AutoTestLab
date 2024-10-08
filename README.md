@@ -1,66 +1,77 @@
+# SauceDemo Automation Test Suite
 
-## Contents
+This project automates end-to-end tests for the [Sauce Demo](https://www.saucedemo.com/) application using **Selenium WebDriver** and **pytest**. The framework leverages the **Page Object Model (POM)** design pattern, making the tests **scalable, maintainable**, and **reusable** for dynamic web applications where UI elements change frequently.
 
-### Selenium
+## Features
 
-The Selenium folder contains tests for Sauce Demo websites. Sub-folder has its own `requirements.txt` file and README for instructions on how to run the tests.
+- **Test Coverage**: Covers login, adding items to cart, checkout, and order placement.
+- **Framework**: Utilizes pytest for test discovery, execution, and reporting.
+- **Page Object Model (POM)**: Follows the POM design pattern to enhance code maintainability, scalability, and separation of concerns.
+- **Scalable & Maintainable**: The codebase is designed to ensure minimal changes in test logic even when the UI changes, making it adaptable to frequent updates.
+- **Environment Variables (Optional)**: Allows storing confidential information (e.g., Sauce Labs credentials) in a `.env` file.
 
-### Puppeteer
+## Prerequisites
 
-The Puppeteer folder contains tests for Sauce Demo websites using Puppeteer, a Node library. Sub-folder has its own `package.json` file and README for instructions on how to run the tests.
+- **Python**: Version 3.x (check with `python --version`)
+- **pip**: Package installer (check with `pip --version`)
+- **Selenium WebDriver**: Download the appropriate WebDriver for your browser from [Selenium WebDriver Downloads](https://www.selenium.dev/downloads/)
+- **Web Browser**: Chrome, Firefox, or Edge are commonly used.
+- **pytest**: Install using `pip install pytest`
 
-### PyTest
+**Optional**:
+- **Sauce Labs Account (for browser testing)**: [Sign up here](https://saucelabs.com/sign-up)
 
-The PyTest folder contains tests for JSONPlaceholder APIs using PyTest, a popular testing framework in Python. Sub-folder has its own `requirements.txt` file and README for instructions on how to run the tests.
+## Installation
 
-## Getting Started
+1. Clone this repository:
+    ```bash
+    git clone <repository-url>
+    ```
 
-To get started with running the tests, follow the instructions provided in the README file located in each framework's sub-folder. Below are general instructions for each framework.
-
-### Selenium
-
-1. **Install Dependencies**: Navigate to the desired project's folder and install the dependencies:
-    ```sh
+2. Install required dependencies:
+    ```bash
     pip install -r requirements.txt
     ```
-2. **Run Tests**: Execute the test scripts using:
-    ```sh
-    python ecom.py
+
+**Optional**:
+- Create a `.env` file in the project root directory and set any necessary environment variables (e.g., `SAUCE_USERNAME`, `SAUCE_ACCESS_KEY`).
+
+## Running Tests
+
+1. Open your terminal in the project directory.
+2. Run the tests with:
+    ```bash
+    pytest
     ```
 
-### Puppeteer
+**Optional (for Sauce Labs testing)**:
+- Configure your Sauce Labs credentials in the environment variables or test configuration files.
+- Follow [Sauce Labs documentation](https://docs.saucelabs.com/) for integrating with pytest.
 
-1. **Install Dependencies**: Navigate to the desired project's folder and install the dependencies:
-    ```sh
-    npm install
-    ```
-2. **Run Tests**: Execute the test scripts using:
-    ```sh
-    npm ecom.js
-    ```
+> **Note**: Modify the path to your test files if they are not located in the default directory.
 
-### PyTest
 
-1. **Install Dependencies**: Navigate to the desired project's folder and install the dependencies:
-    ```sh
-    pip install -r requirements.txt
-    ```
-2. **Run Tests**: Execute the test scripts using:
-    ```sh
-    pytest tests
-    ```
 
-## Contributions
+### 📁 **Directory Breakdown**
 
-Contributions are welcome! Please fork the repository, make your changes, and submit a pull request. Ensure your code follows the style guidelines and passes all tests.
+- **`pages/`**: Contains the Page Object classes, each representing a different page of the web application. This design pattern abstracts the locators and interactions, making the tests less prone to UI changes.
+  
+- **`tests/`**: Contains the test scripts written using `pytest`, covering different scenarios for [SauceDemo](https://www.saucedemo.com/). Each test file follows a clear structure to ensure readability and scalability.
 
-## License
+- **`utils/`**: Includes utility modules to handle configurations, test data, and other reusable components, making the framework modular and easier to extend.
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- **`conftest.py`**: Houses the shared `pytest` configurations and fixtures, ensuring a seamless and maintainable setup for the entire test suite.
 
-## Contact
+## Test Structure
 
-For any questions or suggestions, feel free to open an issue or contact me at [suraj03143@gmail.com].
+The test suite follows a clear structure with separate files for:
 
-Happy Testing!
+- **Page Objects**: Define locators and interactions for each page element (e.g., `LoginPage`, `InventoryPage`).
+- **Test Cases**: Implement test logic using pytest functions (e.g., `test_login`, `test_add_to_cart`).
 
+## Reporting
+
+`pytest` automatically generates a test report in the terminal. For more detailed reports, you can use plugins like `pytest-html` to create HTML reports:
+```bash
+pip install pytest-html
+pytest --html=report.html
