@@ -39,9 +39,9 @@ This project automates end-to-end tests for the [Sauce Demo](https://www.saucede
 ## Running Tests
 
 1. Open your terminal in the project directory.
-2. Run the tests with:
+2. Run the tests with below command and monitor the TestsAutomationReport.html file for complete report
     ```bash
-    pytest
+    pytest tests --html=TestsAutomationReport.html
     ```
 
 **Optional (for Sauce Labs testing)**:
