@@ -1,0 +1,6 @@
+pytest
+requests
+pytest-html
+pytest-xdist
+jsonschema
+pytest-json-report
