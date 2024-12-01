@@ -1,0 +1,90 @@
+2024-12-01 19:03:34,796 - INFO - Starting test: test_fetch_all_users
+2024-12-01 19:03:34,796 - INFO - Starting test: test_get_posts
+2024-12-01 19:03:34,796 - INFO - Starting test: test_get_post
+2024-12-01 19:03:34,796 - INFO - Starting test: test_get_comments
+2024-12-01 19:03:34,796 - INFO - Starting test: test_search_for_user
+2024-12-01 19:03:34,796 - INFO - Starting test: test_fetch_single_user
+2024-12-01 19:03:35,598 - INFO - GET https://jsonplaceholder.typicode.com/users - Status Code: 200
+2024-12-01 19:03:35,599 - INFO - Response contains 10 users
+2024-12-01 19:03:35,601 - INFO - GET https://jsonplaceholder.typicode.com/comments - Status Code: 200
+2024-12-01 19:03:35,601 - INFO - GET https://jsonplaceholder.typicode.com/users/1 - Status Code: 200
+2024-12-01 19:03:35,601 - INFO - User data contains expected keys: dict_keys(['id', 'name', 'username', 'email', 'address', 'phone', 'website', 'company'])
+2024-12-01 19:03:35,605 - INFO - Response contains 500 comments
+2024-12-01 19:03:35,632 - INFO - User data validated successfully against the schema
+2024-12-01 19:03:35,632 - INFO - Finished test: test_fetch_single_user
+2024-12-01 19:03:35,635 - INFO - GET https://jsonplaceholder.typicode.com/posts/2 - Status Code: 200
+2024-12-01 19:03:35,635 - INFO - Response data ID: 2 matches the expected value
+2024-12-01 19:03:35,640 - INFO - Post data validated successfully against the schema
+2024-12-01 19:03:35,640 - INFO - Finished test: test_get_post
+2024-12-01 19:03:35,711 - INFO - All users validated successfully against the schema
+2024-12-01 19:03:35,711 - INFO - Finished test: test_fetch_all_users
+2024-12-01 19:03:36,084 - INFO - GET https://jsonplaceholder.typicode.com//users?id=2 - Status Code: 200
+2024-12-01 19:03:36,084 - INFO - Search result contains 1 user(s)
+2024-12-01 19:03:36,092 - INFO - User search result validated successfully against the schema
+2024-12-01 19:03:36,092 - INFO - Finished test: test_search_for_user
+2024-12-01 19:03:36,122 - INFO - GET https://jsonplaceholder.typicode.com/posts - Status Code: 200
+2024-12-01 19:03:36,123 - INFO - Response contains 100 items
+2024-12-01 19:03:36,348 - INFO - All items validated successfully against the schema
+2024-12-01 19:03:36,348 - INFO - Finished test: test_get_posts
+2024-12-01 19:03:36,951 - INFO - All comments validated successfully against the schema
+2024-12-01 19:03:36,951 - INFO - Finished test: test_get_comments
+2024-12-01 19:03:48,599 - INFO - Starting test: test_get_post
+2024-12-01 19:03:48,599 - INFO - Starting test: test_get_posts
+2024-12-01 19:03:48,599 - INFO - Starting test: test_get_comments
+2024-12-01 19:03:48,600 - INFO - Starting test: test_search_for_user
+2024-12-01 19:03:48,600 - INFO - Starting test: test_fetch_single_user
+2024-12-01 19:03:48,600 - INFO - Starting test: test_fetch_all_users
+2024-12-01 19:03:49,057 - INFO - GET https://jsonplaceholder.typicode.com/posts/2 - Status Code: 200
+2024-12-01 19:03:49,057 - INFO - Response data ID: 2 matches the expected value
+2024-12-01 19:03:49,061 - INFO - Post data validated successfully against the schema
+2024-12-01 19:03:49,061 - INFO - Finished test: test_get_post
+2024-12-01 19:03:49,254 - INFO - GET https://jsonplaceholder.typicode.com/users - Status Code: 200
+2024-12-01 19:03:49,255 - INFO - Response contains 10 users
+2024-12-01 19:03:49,260 - INFO - GET https://jsonplaceholder.typicode.com//users?id=2 - Status Code: 200
+2024-12-01 19:03:49,260 - INFO - Search result contains 1 user(s)
+2024-12-01 19:03:49,272 - INFO - User search result validated successfully against the schema
+2024-12-01 19:03:49,272 - INFO - Finished test: test_search_for_user
+2024-12-01 19:03:49,299 - INFO - GET https://jsonplaceholder.typicode.com/users/1 - Status Code: 200
+2024-12-01 19:03:49,299 - INFO - User data contains expected keys: dict_keys(['id', 'name', 'username', 'email', 'address', 'phone', 'website', 'company'])
+2024-12-01 19:03:49,308 - INFO - User data validated successfully against the schema
+2024-12-01 19:03:49,308 - INFO - Finished test: test_fetch_single_user
+2024-12-01 19:03:49,347 - INFO - All users validated successfully against the schema
+2024-12-01 19:03:49,347 - INFO - Finished test: test_fetch_all_users
+2024-12-01 19:03:49,757 - INFO - GET https://jsonplaceholder.typicode.com/comments - Status Code: 200
+2024-12-01 19:03:49,759 - INFO - Response contains 500 comments
+2024-12-01 19:03:49,799 - INFO - GET https://jsonplaceholder.typicode.com/posts - Status Code: 200
+2024-12-01 19:03:49,800 - INFO - Response contains 100 items
+2024-12-01 19:03:50,023 - INFO - All items validated successfully against the schema
+2024-12-01 19:03:50,023 - INFO - Finished test: test_get_posts
+2024-12-01 19:03:51,064 - INFO - All comments validated successfully against the schema
+2024-12-01 19:03:51,064 - INFO - Finished test: test_get_comments
+2024-12-01 19:04:35,859 - INFO - Starting test: test_get_posts
+2024-12-01 19:04:35,859 - INFO - Starting test: test_get_comments
+2024-12-01 19:04:35,859 - INFO - Starting test: test_search_for_user
+2024-12-01 19:04:35,859 - INFO - Starting test: test_fetch_single_user
+2024-12-01 19:04:35,859 - INFO - Starting test: test_get_post
+2024-12-01 19:04:35,859 - INFO - Starting test: test_fetch_all_users
+2024-12-01 19:04:36,655 - INFO - GET https://jsonplaceholder.typicode.com/posts/2 - Status Code: 200
+2024-12-01 19:04:36,655 - INFO - GET https://jsonplaceholder.typicode.com/posts - Status Code: 200
+2024-12-01 19:04:36,655 - INFO - GET https://jsonplaceholder.typicode.com/users/1 - Status Code: 200
+2024-12-01 19:04:36,655 - INFO - Response data ID: 2 matches the expected value
+2024-12-01 19:04:36,655 - INFO - User data contains expected keys: dict_keys(['id', 'name', 'username', 'email', 'address', 'phone', 'website', 'company'])
+2024-12-01 19:04:36,656 - INFO - Response contains 100 items
+2024-12-01 19:04:36,657 - INFO - GET https://jsonplaceholder.typicode.com/users - Status Code: 200
+2024-12-01 19:04:36,657 - INFO - Response contains 10 users
+2024-12-01 19:04:36,660 - INFO - Post data validated successfully against the schema
+2024-12-01 19:04:36,660 - INFO - Finished test: test_get_post
+2024-12-01 19:04:36,668 - INFO - User data validated successfully against the schema
+2024-12-01 19:04:36,668 - INFO - Finished test: test_fetch_single_user
+2024-12-01 19:04:36,726 - INFO - GET https://jsonplaceholder.typicode.com/comments - Status Code: 200
+2024-12-01 19:04:36,728 - INFO - Response contains 500 comments
+2024-12-01 19:04:36,760 - INFO - All users validated successfully against the schema
+2024-12-01 19:04:36,760 - INFO - Finished test: test_fetch_all_users
+2024-12-01 19:04:36,891 - INFO - All items validated successfully against the schema
+2024-12-01 19:04:36,891 - INFO - Finished test: test_get_posts
+2024-12-01 19:04:36,899 - INFO - GET https://jsonplaceholder.typicode.com//users?id=2 - Status Code: 200
+2024-12-01 19:04:36,899 - INFO - Search result contains 1 user(s)
+2024-12-01 19:04:36,908 - INFO - User search result validated successfully against the schema
+2024-12-01 19:04:36,908 - INFO - Finished test: test_search_for_user
+2024-12-01 19:04:38,045 - INFO - All comments validated successfully against the schema
+2024-12-01 19:04:38,045 - INFO - Finished test: test_get_comments
