@@ -63,7 +63,7 @@ pipeline {
             steps {
                 echo '========== Waiting for Selenium Hub to be ready =========='
                 sh '''
-                    timeout 60 bash -c 'until curl -s http://selenium-hub:4444/wd/hub/status | grep -q "\"ready\":true"; do 
+                    timeout 60 bash -c 'until curl -s http://selenium-hub:4444/wd/hub/status 2>/dev/null | grep -o "ready.*true" > /dev/null; do 
                         echo "Waiting for Selenium Hub..."
                         sleep 2
                     done'
