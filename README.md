@@ -50,7 +50,7 @@ This starts:
 
 ```bash
 # Start Docker containers (if not already running)
-docker-compose up -d
+docker compose up -d
 
 # Run all tests
 chmod +x run_tests.sh
@@ -129,7 +129,7 @@ AutoTestLab/
 │   └── configure.groovy
 │
 ├── Jenkinsfile            (CI/CD Pipeline)
-├── docker-compose.yml     (Container setup)
+├── compose.yml            (Container setup)
 ├── setup-jenkins.sh       (Quick start script)
 ├── run_tests.sh           (Local test runner)
 ├── .env.example           (Configuration template)
@@ -203,22 +203,22 @@ Test results are automatically posted as PR comments when running via Jenkins wi
 
 ```bash
 # Start containers
-docker-compose up -d
+docker compose up -d
 
 # Stop containers
-docker-compose stop
+docker compose stop
 
 # View logs
-docker-compose logs -f
+docker compose logs -f
 
 # Check status
-docker-compose ps
+docker compose ps
 
 # Restart specific service
-docker-compose restart jenkins
+docker compose restart jenkins
 
 # Clean up
-docker-compose down -v
+docker compose down -v
 ```
 
 ## 🔍 Monitoring
@@ -263,18 +263,18 @@ docker logs selenium-hub
 docker logs jenkins
 
 # Increase timeout and retry
-docker-compose restart jenkins
+docker compose restart jenkins
 sleep 60
 ```
 
 ### Chrome tests failing
 ```bash
 # Increase shared memory
-# Edit docker-compose.yml: shm_size: 4gb
+# Edit compose.yml: shm_size: 4gb
 
 # Restart containers
-docker-compose down
-docker-compose up -d
+docker compose down
+docker compose up -d
 ```
 
 See [JENKINS_SETUP.md](JENKINS_SETUP.md#troubleshooting) for more troubleshooting tips.
@@ -345,10 +345,10 @@ To update container images:
 
 ```bash
 # Pull latest images
-docker-compose pull
+docker compose pull
 
 # Rebuild and restart
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ---
