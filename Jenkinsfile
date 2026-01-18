@@ -33,7 +33,6 @@ pipeline {
                 echo '========== Setting up Python environment =========='
                 sh '''
                     python3 --version
-                    pip3 install --upgrade pip
                 '''
             }
         }
@@ -43,7 +42,7 @@ pipeline {
                 echo '========== Installing API test dependencies =========='
                 sh '''
                     cd JsonPlaceholder-API-Automation-Suite
-                    pip3 install -r requirements.txt
+                    pip3 install --break-system-packages -r requirements.txt
                     cd ..
                 '''
             }
@@ -54,7 +53,7 @@ pipeline {
                 echo '========== Installing UI test dependencies =========='
                 sh '''
                     cd SauceDemo-UI-Automation-Suite
-                    pip3 install -r requirements.txt
+                    pip3 install --break-system-packages -r requirements.txt
                     cd ..
                 '''
             }
