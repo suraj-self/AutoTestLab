@@ -131,13 +131,6 @@ pipeline {
             archiveArtifacts artifacts: '**/api_report.html, **/ui_report.html, **/api_report.json, **/combined_report.html', 
                              allowEmptyArchive: true
             
-            publishHTML([
-                reportDir: '.',
-                reportFiles: 'combined_report.html',
-                reportName: 'Test Report',
-                keepAll: true
-            ])
-            
             junit testResults: '**/api_report.xml, **/ui_report.xml', 
                   allowEmptyResults: true
         }
