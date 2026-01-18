@@ -92,7 +92,7 @@ pipeline {
                 echo '========== Running UI Tests =========='
                 sh '''
                     cd SauceDemo-UI-Automation-Suite
-                    python3 -m pytest tests/ -v --tb=short \
+                    USE_GRID=true SELENIUM_HUB_URL=http://selenium-hub:4444 python3 -m pytest tests/ -v --tb=short \
                         --html=ui_report.html \
                         --junitxml=ui_report.xml || true
                     cd ..
