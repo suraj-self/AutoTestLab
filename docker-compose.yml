@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+  # Jenkins Master
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    hostname: jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    environment:
+      - JENKINS_OPTS=--httpPort=8080
+      - JENKINS_URL=http://jenkins:8080
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./:/workspace
+    networks:
+      - jenkins-test-network
+    depends_on:
+      - selenium-hub
+    restart: unless-stopped
+
+  # Selenium Hub
+  selenium-hub:
+    image: selenium/hub:4.15.0
+    container_name: selenium-hub
+    hostname: selenium-hub
+    ports:
+      - "4444:4444"
+      - "4442:4442"
+      - "4443:4443"
+    environment:
+      - GRID_MAX_SESSION=10
+      - GRID_BROWSER_TIMEOUT=300
+      - GRID_TIMEOUT=300
+    networks:
+      - jenkins-test-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://selenium-hub:4444/wd/hub/status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Chrome Node for Selenium Grid
+  chrome:
+    image: selenium/node-chrome:4.15.0
+    container_name: selenium-chrome
+    hostname: chrome
+    shm_size: 2gb
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_HOST=chrome
+      - SE_NODE_PORT=5555
+      - SE_NODE_MAX_SESSIONS=5
+      - SE_NODE_SESSION_TIMEOUT=300
+      - SE_VNC_NO_PASSWORD=1
+      - SE_VNC_PORT=5900
+      - WINDOW_WIDTH=1920
+      - WINDOW_HEIGHT=1080
+    ports:
+      - "5900:5900"  # VNC port for debugging
+      - "5555:5555"  # Node port
+    depends_on:
+      - selenium-hub
+    networks:
+      - jenkins-test-network
+    restart: unless-stopped
+
+  # Optional: Firefox Node (uncomment if needed)
+  # firefox:
+  #   image: selenium/node-firefox:4.15.0
+  #   container_name: selenium-firefox
+  #   hostname: firefox
+  #   shm_size: 2gb
+  #   environment:
+  #     - SE_EVENT_BUS_HOST=selenium-hub
+  #     - SE_EVENT_BUS_PUBLISH_PORT=4442
+  #     - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+  #     - SE_NODE_HOST=firefox
+  #     - SE_NODE_PORT=5555
+  #   depends_on:
+  #     - selenium-hub
+  #   networks:
+  #     - jenkins-test-network
+
+volumes:
+  jenkins-data:
+    driver: local
+
+networks:
+  jenkins-test-network:
+    driver: bridge
