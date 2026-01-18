@@ -5,7 +5,7 @@ services:
   jenkins:
     build:
       context: .
-      dockerfile: Dockerfile.jenkins
+      dockerfile: Dockerfile
     container_name: jenkins
     hostname: jenkins
     ports:
