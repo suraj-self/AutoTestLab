@@ -1,6 +1,7 @@
 from pages.login_page import LoginPage
 from pages.logout_page import LogoutPage
 
+
 def test_logout_success(browser):
     """
     Test case for successful login and logout on Sauce Demo.

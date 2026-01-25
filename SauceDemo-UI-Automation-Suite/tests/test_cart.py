@@ -1,6 +1,7 @@
-from pages.login_page import LoginPage
-from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
+from pages.inventory_page import InventoryPage
+from pages.login_page import LoginPage
+
 
 def test_cart_success(browser):
     # Navigate to login page

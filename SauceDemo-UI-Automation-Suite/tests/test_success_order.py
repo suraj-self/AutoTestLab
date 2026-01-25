@@ -1,8 +1,9 @@
-from pages.login_page import LoginPage
-from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
-from pages.success_page import SuccessPage
 from pages.checkout_page import CheckoutPage
+from pages.inventory_page import InventoryPage
+from pages.login_page import LoginPage
+from pages.success_page import SuccessPage
+
 
 def test_cart_success(browser):
     """

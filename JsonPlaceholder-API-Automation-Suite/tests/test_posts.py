@@ -1,10 +1,12 @@
+import logging
+
 import pytest
 import requests
 from config import BASE_URL, HEADERS
-from jsonschema import validate, ValidationError
-import logging
+from jsonschema import ValidationError, validate
 
 logger = logging.getLogger(__name__)
+
 
 class TestPostAPI:
     @pytest.mark.posts_tests
@@ -31,7 +33,7 @@ class TestPostAPI:
             response = requests.get(url=f"{BASE_URL}posts", headers=HEADERS)
             logger.info(f"GET {BASE_URL}posts - Status Code: {response.status_code}")
             assert response.status_code == 200
-            
+
             # Parsing and validating response
             response_data = response.json()
             assert isinstance(response_data, list)
@@ -42,11 +44,11 @@ class TestPostAPI:
             for item in response_data:
                 validate(instance=item, schema=post_schema)
             logger.info("All items validated successfully against the schema")
-        
+
         except requests.exceptions.RequestException as e:
             logger.error(f"HTTP request failed: {str(e)}")
             pytest.fail(f"HTTP request failed: {str(e)}")
-        
+
         except ValidationError as e:
             logger.error(f"Schema validation failed: {e.message}")
             pytest.fail(f"Validation failed: {e.message}")
@@ -54,7 +56,7 @@ class TestPostAPI:
         except Exception as e:
             logger.error(f"An unexpected error occurred: {str(e)}")
             pytest.fail(f"Unexpected error: {str(e)}")
-        
+
         finally:
             logger.info("Finished test: test_get_posts")
 
@@ -87,23 +89,25 @@ class TestPostAPI:
             response_data = response.json()
             assert isinstance(response_data, dict)
             assert response_data["id"] == 2
-            logger.info(f"Response data ID: {response_data['id']} matches the expected value")
+            logger.info(
+                f"Response data ID: {response_data['id']} matches the expected value"
+            )
 
             # Validate post data using post schema
             validate(instance=response_data, schema=post_schema)
             logger.info("Post data validated successfully against the schema")
-        
+
         except requests.exceptions.RequestException as e:
             logger.error(f"HTTP request failed: {str(e)}")
             pytest.fail(f"HTTP request failed: {str(e)}")
-        
+
         except ValidationError as e:
             logger.error(f"Schema validation failed: {e.message}")
             pytest.fail(f"Validation failed: {e.message}")
-        
+
         except Exception as e:
             logger.error(f"An unexpected error occurred: {str(e)}")
             pytest.fail(f"Unexpected error: {str(e)}")
-        
+
         finally:
             logger.info("Finished test: test_get_post")

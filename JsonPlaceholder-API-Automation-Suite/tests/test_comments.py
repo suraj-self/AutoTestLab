@@ -1,10 +1,12 @@
+import logging
+
 import pytest
 import requests
 from config import BASE_URL, HEADERS
-from jsonschema import validate, ValidationError
-import logging
+from jsonschema import ValidationError, validate
 
 logger = logging.getLogger(__name__)
+
 
 class TestCommentsAPI:
     @pytest.mark.comments_tests
