@@ -3,13 +3,13 @@
 This module configures an `execution.log` file in the suite root for
 observability and provides the `browser` fixture used by tests.
 """
-from pathlib import Path
+
 import logging
 import sys
+from pathlib import Path
+
 import pytest
-
 from utils.browser import get_driver
-
 
 # Configure logging for UI tests: write to `SauceDemo-UI-Automation-Suite/execution.log`
 _ROOT = Path(__file__).resolve().parent
@@ -34,13 +34,28 @@ if not logger.handlers:
 def browser():
     """Set up and tear down a WebDriver instance.
 
-    Yields the WebDriver instance and ensures `driver.quit()` is called.
+    Yields the WebDriver instance and ensures `driver.quit()` is called
+    even if the test fails. Logs all lifecycle events for observability.
+
+    Yields:
+        WebDriver: Chrome WebDriver instance
     """
 
+    logger.info("=" * 60)
     logger.info("Starting browser fixture and creating WebDriver")
-    driver = get_driver()
+    logger.info("=" * 60)
     try:
+        driver = get_driver()
+        logger.info("WebDriver initialized successfully")
         yield driver
+    except Exception as e:
+        logger.error(f"Failed to initialize WebDriver: {e}", exc_info=True)
+        raise
     finally:
         logger.info("Quitting WebDriver")
-        driver.quit()
+        try:
+            driver.quit()
+            logger.info("WebDriver closed successfully")
+        except Exception as e:
+            logger.error(f"Error while quitting WebDriver: {e}", exc_info=True)
+        logger.info("=" * 60)

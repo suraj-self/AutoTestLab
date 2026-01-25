@@ -1,3 +1,6 @@
+"""WebDriver factory for UI tests supporting local and Selenium Grid execution."""
+
+import logging
 import os
 
 from selenium import webdriver
@@ -6,88 +9,107 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.remote.webdriver import WebDriver
 from webdriver_manager.chrome import ChromeDriverManager
 
+logger = logging.getLogger("saucedemo.browser")
+
 
 def get_driver():
-    """
-    This function sets up and returns a Chrome WebDriver instance.
+    """Create and return a Chrome WebDriver instance.
 
-    It supports two modes:
-    1. Local execution: Uses local ChromeDriver with ChromeDriverManager
-    2. Selenium Grid execution: Connects to remote Selenium Hub via environment variable
+    Supports two modes:
+    1. Local: Uses local ChromeDriver with ChromeDriverManager
+    2. Grid: Connects to remote Selenium Hub
 
     Environment Variables:
-    - SELENIUM_HUB_URL: URL to Selenium Hub (e.g., http://selenium-hub:4444)
-    - USE_GRID: Set to 'true' to enable Selenium Grid mode (default: false)
+    - USE_GRID: 'true' to use Selenium Grid (default: false)
+    - SELENIUM_HUB_URL: Selenium Hub URL (default: http://localhost:4444)
 
     Returns:
-        WebDriver: A Chrome WebDriver instance
-    """
+        WebDriver: Chrome WebDriver instance
 
+    Raises:
+        Exception: If driver initialization fails
+    """
+    logger.info("Initializing WebDriver")
     use_grid = os.getenv("USE_GRID", "false").lower() == "true"
     selenium_hub_url = os.getenv("SELENIUM_HUB_URL", "http://localhost:4444")
 
-    if use_grid:
-        return get_remote_driver(selenium_hub_url)
-    else:
+    try:
+        if use_grid:
+            logger.info(
+                f"Creating remote WebDriver for Selenium Hub: {selenium_hub_url}"
+            )
+            return get_remote_driver(selenium_hub_url)
+        logger.info("Creating local WebDriver with ChromeDriverManager")
         return get_local_driver()
+    except Exception as e:
+        logger.error(f"Failed to initialize WebDriver: {e}", exc_info=True)
+        raise
 
 
 def get_local_driver():
-    """
-    Sets up and returns a headless Chrome WebDriver instance for local execution.
+    """Create a headless local Chrome WebDriver.
 
-    Uses ChromeDriverManager to automatically manage the ChromeDriver binary.
-
-    Steps:
-    1. Create ChromeOptions object to configure the browser.
-    2. Set 'headless' mode to run the browser in the background.
-    3. Add additional options for sandbox and shared memory handling.
-    4. Use ChromeDriverManager to find the appropriate ChromeDriver.
-    5. Create a new Chrome WebDriver instance.
-    6. Maximize the browser window.
+    Configures Chrome options for headless mode with sandbox and shm handling.
+    Uses ChromeDriverManager to automatically manage ChromeDriver binary.
 
     Returns:
-        WebDriver: A local Chrome WebDriver instance
+        WebDriver: Local Chrome WebDriver instance
+
+    Raises:
+        Exception: If driver creation fails
     """
+    logger.debug("Setting up local Chrome options")
+    try:
+        options = Options()
+        options.add_argument("--headless")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--disable-blink-features=AutomationControlled")
+        options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        options.add_experimental_option("useAutomationExtension", False)
+        logger.debug("Chrome options configured")
 
-    options = Options()
-    options.add_argument("--headless")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-blink-features=AutomationControlled")
-    options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    options.add_experimental_option("useAutomationExtension", False)
-
-    driver = webdriver.Chrome(
-        service=ChromeService(ChromeDriverManager().install()), options=options
-    )
-    driver.maximize_window()
-    return driver
+        driver_path = ChromeDriverManager().install()
+        logger.debug(f"ChromeDriver path: {driver_path}")
+        driver = webdriver.Chrome(service=ChromeService(driver_path), options=options)
+        logger.info("Local Chrome WebDriver created successfully")
+        driver.maximize_window()
+        return driver
+    except Exception as e:
+        logger.error(f"Failed to create local WebDriver: {e}", exc_info=True)
+        raise
 
 
 def get_remote_driver(hub_url):
-    """
-    Sets up and returns a Chrome WebDriver instance connected to a Selenium Hub.
+    """Create a Chrome WebDriver connected to Selenium Hub.
 
-    This enables distributed testing across multiple machines/containers.
+    Enables distributed testing across multiple machines/containers.
 
     Args:
-        hub_url (str): URL to the Selenium Hub (e.g., http://selenium-hub:4444)
+        hub_url (str): Selenium Hub URL (e.g., http://selenium-hub:4444)
 
     Returns:
-        WebDriver: A remote Chrome WebDriver instance
+        WebDriver: Remote Chrome WebDriver instance
+
+    Raises:
+        Exception: If driver creation fails
     """
+    logger.debug(f"Setting up remote Chrome options for {hub_url}")
+    try:
+        options = Options()
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--disable-blink-features=AutomationControlled")
+        options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        options.add_experimental_option("useAutomationExtension", False)
+        logger.debug("Chrome options configured for remote")
 
-    options = Options()
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-blink-features=AutomationControlled")
-    options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    options.add_experimental_option("useAutomationExtension", False)
-
-    # Selenium 4 uses /wd/hub for the endpoint
-    grid_url = f"{hub_url}/wd/hub" if not hub_url.endswith("/wd/hub") else hub_url
-
-    driver = webdriver.Remote(command_executor=grid_url, options=options)
-    driver.maximize_window()
-    return driver
+        grid_url = f"{hub_url}/wd/hub" if not hub_url.endswith("/wd/hub") else hub_url
+        logger.debug(f"Connecting to Selenium Grid at: {grid_url}")
+        driver = webdriver.Remote(command_executor=grid_url, options=options)
+        logger.info(f"Remote Chrome WebDriver created successfully via {grid_url}")
+        driver.maximize_window()
+        return driver
+    except Exception as e:
+        logger.error(f"Failed to create remote WebDriver: {e}", exc_info=True)
+        raise
