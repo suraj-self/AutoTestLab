@@ -73,7 +73,12 @@ def parse_junit_report(report_path):
         tree = ET.parse(report_path)
         root = tree.getroot()
 
-        testsuite = root.find("testsuite")
+        # Handle both cases: root is testsuite or root contains testsuite elements
+        if root.tag == "testsuite":
+            testsuite = root
+        else:
+            testsuite = root.find("testsuite")
+
         if testsuite is None:
             logger.warning(f"No testsuite element found in {report_path}")
             return None
@@ -249,10 +254,6 @@ def main():
     except Exception as e:
         logger.error(f"Fatal error in main: {e}", exc_info=True)
         sys.exit(1)
-
-
-if __name__ == "__main__":
-    main()
 
 
 if __name__ == "__main__":

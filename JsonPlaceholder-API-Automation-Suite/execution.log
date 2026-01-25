@@ -88,3 +88,21 @@
 2024-12-01 19:04:36,908 - INFO - Finished test: test_search_for_user
 2024-12-01 19:04:38,045 - INFO - All comments validated successfully against the schema
 2024-12-01 19:04:38,045 - INFO - Finished test: test_get_comments
+2026-01-25 12:42:03,460 INFO     jsonplaceholder_api [comment_schema]: Loading comment_schema fixture
+2026-01-25 12:42:03,460 DEBUG    jsonplaceholder_api [comment_schema]: Loaded comment schema from resource/comment_schema.json
+2026-01-25 12:42:06,482 DEBUG    jsonplaceholder_api [comment_schema]: Cleaning up comment_schema fixture
+2026-01-25 12:42:06,483 INFO     jsonplaceholder_api [post_schema]: Loading post_schema fixture
+2026-01-25 12:42:06,483 DEBUG    jsonplaceholder_api [post_schema]: Loaded post schema from resource/post_schema.json
+2026-01-25 12:42:07,320 DEBUG    jsonplaceholder_api [post_schema]: Cleaning up post_schema fixture
+2026-01-25 12:42:07,321 INFO     jsonplaceholder_api [post_schema]: Loading post_schema fixture
+2026-01-25 12:42:07,321 DEBUG    jsonplaceholder_api [post_schema]: Loaded post schema from resource/post_schema.json
+2026-01-25 12:42:07,792 DEBUG    jsonplaceholder_api [post_schema]: Cleaning up post_schema fixture
+2026-01-25 12:42:07,794 INFO     jsonplaceholder_api [user_schema]: Loading user_schema fixture
+2026-01-25 12:42:07,795 DEBUG    jsonplaceholder_api [user_schema]: Loaded user schema from resource/user_schema.json
+2026-01-25 12:42:08,588 DEBUG    jsonplaceholder_api [user_schema]: Cleaning up user_schema fixture
+2026-01-25 12:42:08,588 INFO     jsonplaceholder_api [user_schema]: Loading user_schema fixture
+2026-01-25 12:42:08,588 DEBUG    jsonplaceholder_api [user_schema]: Loaded user schema from resource/user_schema.json
+2026-01-25 12:42:09,132 DEBUG    jsonplaceholder_api [user_schema]: Cleaning up user_schema fixture
+2026-01-25 12:42:09,133 INFO     jsonplaceholder_api [user_schema]: Loading user_schema fixture
+2026-01-25 12:42:09,133 DEBUG    jsonplaceholder_api [user_schema]: Loaded user schema from resource/user_schema.json
+2026-01-25 12:42:10,126 DEBUG    jsonplaceholder_api [user_schema]: Cleaning up user_schema fixture

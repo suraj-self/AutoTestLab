@@ -1,0 +1,69 @@
+2026-01-25 12:39:53,769 INFO     pr_publisher [<module>]: Logging initialized for PR publisher
+2026-01-25 12:39:53,769 INFO     pr_publisher [main]: Starting PR comment publisher script
+2026-01-25 12:39:53,769 INFO     pr_publisher [generate_pr_comment]: Generating PR comment with status: RUNNING
+2026-01-25 12:39:53,769 WARNING  pr_publisher [generate_pr_comment]: API report not found: JsonPlaceholder-API-Automation-Suite/api_report.xml
+2026-01-25 12:39:53,769 WARNING  pr_publisher [generate_pr_comment]: UI report not found: SauceDemo-UI-Automation-Suite/ui_report.xml
+2026-01-25 12:39:53,769 INFO     pr_publisher [generate_pr_comment]: PR comment generated successfully
+2026-01-25 12:39:53,770 INFO     pr_publisher [publish_to_github]: Publishing comment to GitHub
+2026-01-25 12:39:53,770 DEBUG    pr_publisher [publish_to_github]: GitHub API URL: https://api.github.com/repos/suraj-self/AutoTestLab/issues/19/comments
+2026-01-25 12:39:53,770 DEBUG    pr_publisher [publish_to_github]: Sending POST request to GitHub API
+2026-01-25 12:39:54,482 INFO     pr_publisher [publish_to_github]: ✅ Comment posted successfully to GitHub PR
+2026-01-25 12:39:54,482 INFO     pr_publisher [main]: PR comment publisher script completed successfully
+2026-01-25 12:39:54,482 INFO     pr_publisher [main]: Starting PR comment publisher script
+2026-01-25 12:39:54,482 INFO     pr_publisher [generate_pr_comment]: Generating PR comment with status: RUNNING
+2026-01-25 12:39:54,482 WARNING  pr_publisher [generate_pr_comment]: API report not found: JsonPlaceholder-API-Automation-Suite/api_report.xml
+2026-01-25 12:39:54,483 WARNING  pr_publisher [generate_pr_comment]: UI report not found: SauceDemo-UI-Automation-Suite/ui_report.xml
+2026-01-25 12:39:54,483 INFO     pr_publisher [generate_pr_comment]: PR comment generated successfully
+2026-01-25 12:39:54,483 INFO     pr_publisher [publish_to_github]: Publishing comment to GitHub
+2026-01-25 12:39:54,483 DEBUG    pr_publisher [publish_to_github]: GitHub API URL: https://api.github.com/repos/suraj-self/AutoTestLab/issues/19/comments
+2026-01-25 12:39:54,483 DEBUG    pr_publisher [publish_to_github]: Sending POST request to GitHub API
+2026-01-25 12:39:55,230 INFO     pr_publisher [publish_to_github]: ✅ Comment posted successfully to GitHub PR
+2026-01-25 12:39:55,231 INFO     pr_publisher [main]: PR comment publisher script completed successfully
+2026-01-25 12:42:30,285 INFO     pr_publisher [<module>]: Logging initialized for PR publisher
+2026-01-25 12:42:30,285 INFO     pr_publisher [main]: Starting PR comment publisher script
+2026-01-25 12:42:30,285 INFO     pr_publisher [generate_pr_comment]: Generating PR comment with status: RUNNING
+2026-01-25 12:42:30,285 DEBUG    pr_publisher [generate_pr_comment]: API report found: JsonPlaceholder-API-Automation-Suite/api_report.xml
+2026-01-25 12:42:30,285 INFO     pr_publisher [parse_junit_report]: Parsing JUnit report: JsonPlaceholder-API-Automation-Suite/api_report.xml
+2026-01-25 12:42:30,288 DEBUG    pr_publisher [parse_junit_report]: JUnit report parsed successfully: 6 total, 6 passed, 0 failed
+2026-01-25 12:42:30,288 DEBUG    pr_publisher [generate_pr_comment]: UI report found: SauceDemo-UI-Automation-Suite/ui_report.xml
+2026-01-25 12:42:30,288 INFO     pr_publisher [parse_junit_report]: Parsing JUnit report: SauceDemo-UI-Automation-Suite/ui_report.xml
+2026-01-25 12:42:30,288 WARNING  pr_publisher [parse_junit_report]: No testsuite element found in SauceDemo-UI-Automation-Suite/ui_report.xml
+2026-01-25 12:42:30,288 INFO     pr_publisher [generate_pr_comment]: PR comment generated successfully
+2026-01-25 12:42:30,288 INFO     pr_publisher [publish_to_github]: Publishing comment to GitHub
+2026-01-25 12:42:30,288 DEBUG    pr_publisher [publish_to_github]: GitHub API URL: https://api.github.com/repos/suraj-self/AutoTestLab/issues/19/comments
+2026-01-25 12:42:30,288 DEBUG    pr_publisher [publish_to_github]: Sending POST request to GitHub API
+2026-01-25 12:42:31,106 INFO     pr_publisher [publish_to_github]: ✅ Comment posted successfully to GitHub PR
+2026-01-25 12:42:31,107 INFO     pr_publisher [main]: PR comment publisher script completed successfully
+2026-01-25 12:42:47,579 INFO     pr_publisher [<module>]: Logging initialized for PR publisher
+2026-01-25 12:42:47,579 INFO     pr_publisher [main]: Starting PR comment publisher script
+2026-01-25 12:42:47,579 INFO     pr_publisher [generate_pr_comment]: Generating PR comment with status: RUNNING
+2026-01-25 12:42:47,580 DEBUG    pr_publisher [generate_pr_comment]: API report found: JsonPlaceholder-API-Automation-Suite/api_report.xml
+2026-01-25 12:42:47,580 INFO     pr_publisher [parse_junit_report]: Parsing JUnit report: JsonPlaceholder-API-Automation-Suite/api_report.xml
+2026-01-25 12:42:47,583 DEBUG    pr_publisher [parse_junit_report]: JUnit report parsed successfully: 6 total, 6 passed, 0 failed
+2026-01-25 12:42:47,583 DEBUG    pr_publisher [generate_pr_comment]: UI report found: SauceDemo-UI-Automation-Suite/ui_report.xml
+2026-01-25 12:42:47,583 INFO     pr_publisher [parse_junit_report]: Parsing JUnit report: SauceDemo-UI-Automation-Suite/ui_report.xml
+2026-01-25 12:42:47,583 WARNING  pr_publisher [parse_junit_report]: No testsuite element found in SauceDemo-UI-Automation-Suite/ui_report.xml
+2026-01-25 12:42:47,583 INFO     pr_publisher [generate_pr_comment]: PR comment generated successfully
+2026-01-25 12:42:47,583 INFO     pr_publisher [publish_to_github]: Publishing comment to GitHub
+2026-01-25 12:42:47,583 DEBUG    pr_publisher [publish_to_github]: GitHub API URL: https://api.github.com/repos/suraj-self/AutoTestLab/issues/19/comments
+2026-01-25 12:42:47,583 DEBUG    pr_publisher [publish_to_github]: Sending POST request to GitHub API
+2026-01-25 12:42:48,309 INFO     pr_publisher [publish_to_github]: ✅ Comment posted successfully to GitHub PR
+2026-01-25 12:42:48,310 INFO     pr_publisher [main]: PR comment publisher script completed successfully
+2026-01-25 12:43:12,277 INFO     pr_publisher [<module>]: Logging initialized for PR publisher
+2026-01-25 12:43:12,277 INFO     pr_publisher [parse_junit_report]: Parsing JUnit report: SauceDemo-UI-Automation-Suite/ui_report.xml
+2026-01-25 12:43:12,280 WARNING  pr_publisher [parse_junit_report]: No testsuite element found in SauceDemo-UI-Automation-Suite/ui_report.xml
+2026-01-25 12:43:46,938 INFO     pr_publisher [<module>]: Logging initialized for PR publisher
+2026-01-25 12:43:46,939 INFO     pr_publisher [main]: Starting PR comment publisher script
+2026-01-25 12:43:46,939 INFO     pr_publisher [generate_pr_comment]: Generating PR comment with status: RUNNING
+2026-01-25 12:43:46,939 DEBUG    pr_publisher [generate_pr_comment]: API report found: JsonPlaceholder-API-Automation-Suite/api_report.xml
+2026-01-25 12:43:46,939 INFO     pr_publisher [parse_junit_report]: Parsing JUnit report: JsonPlaceholder-API-Automation-Suite/api_report.xml
+2026-01-25 12:43:46,941 DEBUG    pr_publisher [parse_junit_report]: JUnit report parsed successfully: 6 total, 6 passed, 0 failed
+2026-01-25 12:43:46,941 DEBUG    pr_publisher [generate_pr_comment]: UI report found: SauceDemo-UI-Automation-Suite/ui_report.xml
+2026-01-25 12:43:46,942 INFO     pr_publisher [parse_junit_report]: Parsing JUnit report: SauceDemo-UI-Automation-Suite/ui_report.xml
+2026-01-25 12:43:46,942 DEBUG    pr_publisher [parse_junit_report]: JUnit report parsed successfully: 5 total, 5 passed, 0 failed
+2026-01-25 12:43:46,942 INFO     pr_publisher [generate_pr_comment]: PR comment generated successfully
+2026-01-25 12:43:46,942 INFO     pr_publisher [publish_to_github]: Publishing comment to GitHub
+2026-01-25 12:43:46,942 DEBUG    pr_publisher [publish_to_github]: GitHub API URL: https://api.github.com/repos/suraj-self/AutoTestLab/issues/19/comments
+2026-01-25 12:43:46,942 DEBUG    pr_publisher [publish_to_github]: Sending POST request to GitHub API
+2026-01-25 12:43:47,700 INFO     pr_publisher [publish_to_github]: ✅ Comment posted successfully to GitHub PR
+2026-01-25 12:43:47,701 INFO     pr_publisher [main]: PR comment publisher script completed successfully
