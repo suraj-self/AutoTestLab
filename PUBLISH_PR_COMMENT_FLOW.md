@@ -149,7 +149,7 @@ if not all([github_token, github_repo, pr_number]):
 
 **What you set manually:**
 ```bash
-export GITHUB_TOKEN=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
+export GITHUB_TOKEN=<your-personal-access-token>
 export GITHUB_REPOSITORY=suraj-self/AutoTestLab
 export GITHUB_PR_NUMBER=19
 ```
