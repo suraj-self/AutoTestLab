@@ -1,5 +1,6 @@
 from pages.login_page import LoginPage
 
+
 def test_login_success(browser):
     """
     Test case for successful login on Sauce Demo website.

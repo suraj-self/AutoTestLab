@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class LoginPage:
@@ -39,7 +39,9 @@ class LoginPage:
         Args:
             username (str): The username to enter.
         """
-        username_field = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(self.username))
+        username_field = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(self.username)
+        )
         username_field.send_keys(username)
 
     def enter_password(self, password):
@@ -52,7 +54,9 @@ class LoginPage:
         Args:
             password (str): The password to enter.
         """
-        password_field = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(self.password))
+        password_field = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(self.password)
+        )
         password_field.send_keys(password)
 
     def click_login(self):
@@ -64,5 +68,7 @@ class LoginPage:
 
         Raises a TimeoutException if the button is not clickable within the timeout.
         """
-        login_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.submit))
+        login_button = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.submit)
+        )
         login_button.click()

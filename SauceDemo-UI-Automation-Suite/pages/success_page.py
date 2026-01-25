@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class SuccessPage:
@@ -34,7 +34,11 @@ class SuccessPage:
         Returns:
             str: The text of the success message element.
         """
-        success_text = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(self.success_message)).text
+        success_text = (
+            WebDriverWait(self.driver, 10)
+            .until(EC.presence_of_element_located(self.success_message))
+            .text
+        )
         return success_text
 
     def click_back_home(self):
@@ -44,4 +48,6 @@ class SuccessPage:
         Uses WebDriverWait with a 10-second timeout to wait for the button to be clickable.
         If the button is not clickable within the timeout, a TimeoutException is raised.
         """
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.back_home)).click()
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.back_home)
+        ).click()

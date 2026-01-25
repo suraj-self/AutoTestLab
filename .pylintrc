@@ -1,0 +1,21 @@
+[MASTER]
+ignore=.venv,venv
+init-hook='import sys; sys.path.append("JsonPlaceholder-API-Automation-Suite"); sys.path.append("SauceDemo-UI-Automation-Suite")'
+
+[MESSAGES CONTROL]
+# Disable some rules that are noisy for test suites and CI-local linting
+disable=
+    C0114,  # missing-module-docstring
+    C0115,  # missing-class-docstring
+    C0116,  # missing-function-docstring
+    E0401,  # import-error (tests require external deps in runtime)
+    R0801,  # duplicate-code across similar tests
+    W1203,  # logging-fstring-interpolation
+    W1514,  # unspecified-encoding for open
+
+[FORMAT]
+max-line-length=120
+
+[REPORTS]
+output-format = text
+score = yes

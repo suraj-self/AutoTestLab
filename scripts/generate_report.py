@@ -1,10 +1,11 @@
 """
 Script to generate combined HTML test report from API and UI tests
 """
+
 import json
 import os
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 from xml.etree import ElementTree as ET
 
 
@@ -13,44 +14,44 @@ def parse_junit_report(report_path):
     try:
         tree = ET.parse(report_path)
         root = tree.getroot()
-        
+
         testcases = []
-        for testsuite in root.findall('testsuite'):
-            suite_name = testsuite.get('name', 'Unknown')
-            for testcase in testsuite.findall('testcase'):
+        for testsuite in root.findall("testsuite"):
+            suite_name = testsuite.get("name", "Unknown")
+            for testcase in testsuite.findall("testcase"):
                 tc = {
-                    'classname': testcase.get('classname', ''),
-                    'name': testcase.get('name', ''),
-                    'time': float(testcase.get('time', 0)),
-                    'status': 'passed'
+                    "classname": testcase.get("classname", ""),
+                    "name": testcase.get("name", ""),
+                    "time": float(testcase.get("time", 0)),
+                    "status": "passed",
                 }
-                
-                if testcase.find('failure') is not None:
-                    tc['status'] = 'failed'
-                    tc['error'] = testcase.find('failure').text
-                elif testcase.find('error') is not None:
-                    tc['status'] = 'error'
-                    tc['error'] = testcase.find('error').text
-                elif testcase.find('skipped') is not None:
-                    tc['status'] = 'skipped'
-                
+
+                if testcase.find("failure") is not None:
+                    tc["status"] = "failed"
+                    tc["error"] = testcase.find("failure").text
+                elif testcase.find("error") is not None:
+                    tc["status"] = "error"
+                    tc["error"] = testcase.find("error").text
+                elif testcase.find("skipped") is not None:
+                    tc["status"] = "skipped"
+
                 testcases.append(tc)
-        
+
         total = len(testcases)
-        passed = len([tc for tc in testcases if tc['status'] == 'passed'])
-        failed = len([tc for tc in testcases if tc['status'] == 'failed'])
-        errors = len([tc for tc in testcases if tc['status'] == 'error'])
-        skipped = len([tc for tc in testcases if tc['status'] == 'skipped'])
-        
+        passed = len([tc for tc in testcases if tc["status"] == "passed"])
+        failed = len([tc for tc in testcases if tc["status"] == "failed"])
+        errors = len([tc for tc in testcases if tc["status"] == "error"])
+        skipped = len([tc for tc in testcases if tc["status"] == "skipped"])
+
         return {
-            'testcases': testcases,
-            'stats': {
-                'total': total,
-                'passed': passed,
-                'failed': failed,
-                'errors': errors,
-                'skipped': skipped
-            }
+            "testcases": testcases,
+            "stats": {
+                "total": total,
+                "passed": passed,
+                "failed": failed,
+                "errors": errors,
+                "skipped": skipped,
+            },
         }
     except Exception as e:
         print(f"Error parsing {report_path}: {e}")
@@ -59,17 +60,25 @@ def parse_junit_report(report_path):
 
 def generate_html_report(api_data, ui_data):
     """Generate combined HTML report"""
-    
-    api_stats = api_data['stats'] if api_data else {'total': 0, 'passed': 0, 'failed': 0, 'errors': 0, 'skipped': 0}
-    ui_stats = ui_data['stats'] if ui_data else {'total': 0, 'passed': 0, 'failed': 0, 'errors': 0, 'skipped': 0}
-    
-    total_tests = api_stats['total'] + ui_stats['total']
-    total_passed = api_stats['passed'] + ui_stats['passed']
-    total_failed = api_stats['failed'] + ui_stats['failed']
-    total_skipped = api_stats['skipped'] + ui_stats['skipped']
-    
+
+    api_stats = (
+        api_data["stats"]
+        if api_data
+        else {"total": 0, "passed": 0, "failed": 0, "errors": 0, "skipped": 0}
+    )
+    ui_stats = (
+        ui_data["stats"]
+        if ui_data
+        else {"total": 0, "passed": 0, "failed": 0, "errors": 0, "skipped": 0}
+    )
+
+    total_tests = api_stats["total"] + ui_stats["total"]
+    total_passed = api_stats["passed"] + ui_stats["passed"]
+    total_failed = api_stats["failed"] + ui_stats["failed"]
+    total_skipped = api_stats["skipped"] + ui_stats["skipped"]
+
     pass_rate = (total_passed / total_tests * 100) if total_tests > 0 else 0
-    
+
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -297,7 +306,7 @@ def generate_html_report(api_data, ui_data):
         
         <div class="content">
 """
-    
+
     # Add API tests section
     if api_data:
         html += f"""
@@ -310,7 +319,7 @@ def generate_html_report(api_data, ui_data):
                     <span class="skipped">{api_stats['skipped']} skipped</span>
                 </div>
 """
-        for tc in api_data['testcases']:
+        for tc in api_data["testcases"]:
             html += f"""
                 <div class="test-case {tc['status']}">
                     <span class="test-status {tc['status']}">{tc['status']}</span>
@@ -319,7 +328,7 @@ def generate_html_report(api_data, ui_data):
                 </div>
 """
         html += "            </div>"
-    
+
     # Add UI tests section
     if ui_data:
         html += f"""
@@ -332,7 +341,7 @@ def generate_html_report(api_data, ui_data):
                     <span class="skipped">{ui_stats['skipped']} skipped</span>
                 </div>
 """
-        for tc in ui_data['testcases']:
+        for tc in ui_data["testcases"]:
             html += f"""
                 <div class="test-case {tc['status']}">
                     <span class="test-status {tc['status']}">{tc['status']}</span>
@@ -341,7 +350,7 @@ def generate_html_report(api_data, ui_data):
                 </div>
 """
         html += "            </div>"
-    
+
     html += """
         </div>
         
@@ -352,44 +361,44 @@ def generate_html_report(api_data, ui_data):
 </body>
 </html>
 """
-    
+
     return html
 
 
 def main():
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("Generating Combined Test Report...")
-    print("="*60 + "\n")
-    
+    print("=" * 60 + "\n")
+
     # Parse reports
     api_data = None
     ui_data = None
-    
-    api_report = Path('JsonPlaceholder-API-Automation-Suite/api_report.xml')
-    ui_report = Path('SauceDemo-UI-Automation-Suite/ui_report.xml')
-    
+
+    api_report = Path("JsonPlaceholder-API-Automation-Suite/api_report.xml")
+    ui_report = Path("SauceDemo-UI-Automation-Suite/ui_report.xml")
+
     if api_report.exists():
         print(f"✓ Found API report: {api_report}")
         api_data = parse_junit_report(str(api_report))
     else:
         print(f"✗ API report not found: {api_report}")
-    
+
     if ui_report.exists():
         print(f"✓ Found UI report: {ui_report}")
         ui_data = parse_junit_report(str(ui_report))
     else:
         print(f"✗ UI report not found: {ui_report}")
-    
+
     # Generate HTML
     html = generate_html_report(api_data, ui_data)
-    
+
     # Save report
-    output_file = 'combined_report.html'
-    with open(output_file, 'w') as f:
+    output_file = "combined_report.html"
+    with open(output_file, "w") as f:
         f.write(html)
-    
+
     print(f"\n✓ Report generated: {output_file}\n")
-    print("="*60)
+    print("=" * 60)
 
 
 if __name__ == "__main__":

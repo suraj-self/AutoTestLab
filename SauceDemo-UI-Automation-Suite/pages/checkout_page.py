@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class CheckoutPage:
@@ -43,7 +43,9 @@ class CheckoutPage:
         Args:
             first_name (str): The first name to enter.
         """
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.first_name_locator)).send_keys(first_name)
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.first_name_locator)
+        ).send_keys(first_name)
 
     def checkout_last_name(self, last_name):
         """
@@ -55,7 +57,9 @@ class CheckoutPage:
         Args:
             last_name (str): The last name to enter.
         """
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.last_name_locator)).send_keys(last_name)
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.last_name_locator)
+        ).send_keys(last_name)
 
     def checkout_zipcode(self, zip_code):
         """
@@ -67,7 +71,9 @@ class CheckoutPage:
         Args:
             zip_code (str): The zip code to enter.
         """
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.zip_code_locator)).send_keys(zip_code)
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.zip_code_locator)
+        ).send_keys(zip_code)
 
     def click_continue(self):
         """
@@ -75,7 +81,9 @@ class CheckoutPage:
 
         Uses WebDriverWait with a 10-second timeout to wait for the button to be clickable before clicking.
         """
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.continue_locator)).click()
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.continue_locator)
+        ).click()
 
     def click_finish(self):
         """
@@ -83,4 +91,6 @@ class CheckoutPage:
 
         Uses WebDriverWait with a 10-second timeout to wait for the button to be clickable before clicking.
         """
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.finish_locator)).click()
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.finish_locator)
+        ).click()

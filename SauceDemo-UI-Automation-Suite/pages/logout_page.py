@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class LogoutPage:
@@ -37,7 +37,9 @@ class LogoutPage:
         This method is useful when the logout functionality requires clicking a menu first
         to access the logout option.
         """
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.menu_icon_locator)).click()
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.menu_icon_locator)
+        ).click()
 
     def click_logout(self):
         """
@@ -46,4 +48,6 @@ class LogoutPage:
         Uses WebDriverWait with a 10-second timeout to wait for the element to be clickable.
         If the element is not found within the timeout, a TimeoutException is raised.
         """
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.logout_locator)).click()
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.logout_locator)
+        ).click()

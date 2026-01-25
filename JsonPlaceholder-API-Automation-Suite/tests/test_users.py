@@ -1,10 +1,12 @@
+import logging
+
 import pytest
 import requests
 from config import BASE_URL, HEADERS
-from jsonschema import validate, ValidationError
-import logging
+from jsonschema import ValidationError, validate
 
 logger = logging.getLogger(__name__)
+
 
 class TestUsersAPI:
     @pytest.mark.users_tests
@@ -20,7 +22,7 @@ class TestUsersAPI:
         - Each user object adheres to the defined JSON schema.
 
         Logs details about the response and validates against schema.
-        Handles exceptions related to HTTP requests, schema validation, 
+        Handles exceptions related to HTTP requests, schema validation,
         and unexpected errors.
 
         Args:
@@ -72,7 +74,7 @@ class TestUsersAPI:
         - The user object adheres to the defined JSON schema.
 
         Logs details about the response and validates against schema.
-        Handles exceptions related to HTTP requests, schema validation, 
+        Handles exceptions related to HTTP requests, schema validation,
         and unexpected errors.
 
         Args:
@@ -122,7 +124,7 @@ class TestUsersAPI:
         - The user object adheres to the defined JSON schema.
 
         Logs details about the response and validates against schema.
-        Handles exceptions related to HTTP requests, schema validation, 
+        Handles exceptions related to HTTP requests, schema validation,
         and unexpected errors.
 
         Args:
@@ -132,7 +134,9 @@ class TestUsersAPI:
         try:
             # Send a GET request to search for a user
             response = requests.get(url=f"{BASE_URL}/users?id=2", headers=HEADERS)
-            logger.info(f"GET {BASE_URL}/users?id=2 - Status Code: {response.status_code}")
+            logger.info(
+                f"GET {BASE_URL}/users?id=2 - Status Code: {response.status_code}"
+            )
             assert response.status_code == 200
 
             # Validate the search response data

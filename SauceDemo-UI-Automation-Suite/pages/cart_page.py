@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class CartPage:
@@ -12,10 +12,19 @@ class CartPage:
             driver (WebDriver): The WebDriver instance used to interact with the page.
         """
         self.driver = driver
-        self.cart_link_locator = (By.XPATH, "//*[@id='shopping_cart_container']/a")  # Locator for shopping cart link
-        self.added_product_locator = (By.CLASS_NAME, "inventory_item_name")  # Locator for added product name
+        self.cart_link_locator = (
+            By.XPATH,
+            "//*[@id='shopping_cart_container']/a",
+        )  # Locator for shopping cart link
+        self.added_product_locator = (
+            By.CLASS_NAME,
+            "inventory_item_name",
+        )  # Locator for added product name
         self.checkout_locator = (By.ID, "checkout")  # Locator for "Checkout" button
-        self.checkout_title = (By.CLASS_NAME, 'title')  # Locator for checkout page title (unused in current methods)
+        self.checkout_title = (
+            By.CLASS_NAME,
+            "title",
+        )  # Locator for checkout page title (unused in current methods)
 
     def proceed_cart(self):
         """
@@ -24,7 +33,9 @@ class CartPage:
         Uses WebDriverWait with a 10-second timeout to wait for the cart link to be clickable
         before clicking it.
         """
-        cart_link = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.cart_link_locator))
+        cart_link = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.cart_link_locator)
+        )
         cart_link.click()
 
     def verify_added_product(self):
@@ -41,7 +52,11 @@ class CartPage:
         Raises:
             TimeoutException: If the product name element is not found within the timeout.
         """
-        cart_items = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.added_product_locator)).text
+        cart_items = (
+            WebDriverWait(self.driver, 10)
+            .until(EC.element_to_be_clickable(self.added_product_locator))
+            .text
+        )
 
         if cart_items == "Sauce Labs Onesie":
             return {"message": "Item found", "messageCode": 200}
@@ -54,5 +69,7 @@ class CartPage:
 
         Uses WebDriverWait with a 10-second timeout to wait for the button to be clickable before clicking.
         """
-        checkout_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.checkout_locator))
+        checkout_button = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.checkout_locator)
+        )
         checkout_button.click()

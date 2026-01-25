@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class InventoryPage:
@@ -27,9 +27,18 @@ class InventoryPage:
             driver (WebDriver): The WebDriver instance used to interact with the page.
         """
         self.driver = driver
-        self.product_inventory = (By.CLASS_NAME, "inventory_item_name")  # Product name locator
-        self.add_to_cart_locator = (By.ID, "add-to-cart")  # "Add To Cart" button locator
-        self.cart_flipped_text = (By.XPATH, "//*[@id='remove']")  # Text indicating item in cart
+        self.product_inventory = (
+            By.CLASS_NAME,
+            "inventory_item_name",
+        )  # Product name locator
+        self.add_to_cart_locator = (
+            By.ID,
+            "add-to-cart",
+        )  # "Add To Cart" button locator
+        self.cart_flipped_text = (
+            By.XPATH,
+            "//*[@id='remove']",
+        )  # Text indicating item in cart
 
     def search_product(self, product_name):
         """
@@ -41,7 +50,9 @@ class InventoryPage:
         Args:
             product_name (str): The name of the product to search for.
         """
-        inventory_items = WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located(self.product_inventory))
+        inventory_items = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_all_elements_located(self.product_inventory)
+        )
 
         for product in inventory_items:
             if product_name in product.text:
@@ -59,6 +70,12 @@ class InventoryPage:
         Returns:
             str: The confirmation text that appears after adding an item to the cart.
         """
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.add_to_cart_locator)).click()
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.add_to_cart_locator)
+        ).click()
 
-        return WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.cart_flipped_text)).text
+        return (
+            WebDriverWait(self.driver, 10)
+            .until(EC.element_to_be_clickable(self.cart_flipped_text))
+            .text
+        )
